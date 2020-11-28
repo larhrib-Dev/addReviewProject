@@ -6,7 +6,7 @@ const UiButton = (props) => {
     if (block) {
         return <Button color={props.color} block >{props.name}</Button>;
     }
-    return <Button style={{ marginTop: 10 }} color={props.color} >{props.name}</Button>;
+    return <Button style={{ marginTop: 20 }} color={props.color} >{props.name}</Button>;
 }
 
 

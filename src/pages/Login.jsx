@@ -1,17 +1,44 @@
 import React, { Component } from 'react';
-import { Button, Col, FormFeedback, FormGroup, Input, Label, Row } from 'reactstrap';
+import { Button, Col, FormFeedback, FormGroup, Input, Label, Row, Badge, Alert } from 'reactstrap';
+import {Link} from 'react-router-dom';
+import { connect } from 'react-redux';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
 
+import {signIn} from '../actions';
 
-class Login extends Component {
+
+class LoginPage extends Component {
     // eslint-disable-next-line no-useless-constructor
     constructor(props){
         super(props);
         this._handleFormSubmit = this._handleFormSubmit.bind(this);
     }
-    _handleFormSubmit(values) {
-        console.log(values);
+
+    componentDidUpdate() {
+        const { error, isAuth } = this.props;
+        if (error && this.bag) {
+            this.bag.setSubmitting(false);
+        }
+        if (isAuth) {
+            this.props.history.push('/home');
+        }
+    }
+
+    _handleFormSubmit(values, bag) {
+        this.props.signIn(values);
+        this.bag = bag;
+    }
+
+    _renderErrorIfAny() {
+        const { error } = this.props;
+        if (error) {
+            return (
+                <Alert color="danger">
+                    {error}
+                </Alert>
+            );
+        }
     }
 
     render() { 
@@ -19,27 +46,28 @@ class Login extends Component {
             <div style={{ padding: 20 }}>
                 <h3 style={{ textAlign: 'center' }}>Sign in to your account</h3>
                 <hr />
-                <Formik initialValues={{ email: '', password: '' }} 
+                <Row>
+                  <Col sm="12" md={{ size: 6, offset: 3 }}>
+                    { this._renderErrorIfAny() }
+                    <Formik initialValues={{ username: '', password: '' }} 
                         onSubmit={this._handleFormSubmit}
                         validationSchema={Yup.object().shape({
-                            email: Yup.string().email().required(),
-                            password: Yup.string().min(6).required()
-                        })}>
-                    {  ({ handleChange, handleSubmit, isValid, isSubmitting, handleBlur, errors, touched }) => (
-                        <Row>
-                          <Col sm="12" md={{ size: 6, offset: 3 }}>
+                            username: Yup.string().required(),
+                            password: Yup.string().min(4).required()
+                    })}>
+                    {({ handleChange, handleSubmit, isValid, isSubmitting, handleBlur, errors, touched }) => (
                             <FormGroup>
-                              <Label>Email</Label>
-                              <Input  name="email"
-                                      invalid={errors.email && touched.email}
-                                      type="email"
-                                      placeholder="abdelaziz@gmail.ca"
+                              <Label>Username</Label>
+                              <Input  name="username"
+                                      invalid={errors.username && touched.username}
+                                      type="string"
+                                      placeholder="someone"
                                       onChange={handleChange}
                                       onBlur={handleBlur}
                               />
                                 {
-                                    errors.email && touched.email ? 
-                                    <FormFeedback>{errors.email}</FormFeedback> :
+                                    errors.username && touched.username ? 
+                                    <FormFeedback>{errors.username}</FormFeedback> :
                                     null
                                 }
                               <Label>Password</Label>
@@ -63,13 +91,28 @@ class Login extends Component {
                                         >Sign In
                               </Button>
                             </FormGroup>
-                          </Col>
-                        </Row>
                     )}
-                </Formik>
+                    </Formik>
+                    Do not have an account?
+                   <Link to='/signup'> 
+                        <Badge color="info">Sign Up Now</Badge>             
+                   </Link>
+                   </Col>
+                </Row>
             </div>
         );
     }
 }
+
+
+const mapStateToProps = ({ auth }) => {
+    return {
+        attempting: auth.attempting,
+        error: auth.error,
+        isAuth: auth.isAuth
+    };
+};
+
+const Login = connect(mapStateToProps, {signIn})(LoginPage);
 
 export {Login};

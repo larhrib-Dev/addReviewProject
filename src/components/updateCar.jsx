@@ -1,7 +1,7 @@
 import { Formik } from 'formik';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Button, Col, FormFeedback, FormGroup, Input, Label, Row } from 'reactstrap';
+import { Button, Col, FormFeedback, FormGroup, Input, Label, Row, Table } from 'reactstrap';
 import * as Yup from 'yup';
 import axios from 'axios';
 
@@ -10,15 +10,26 @@ class updateCar extends Component {
     constructor(props){
       super(props);
       this._handleFormSubmit = this._handleFormSubmit.bind(this);
+      this.state = {car: this.props.location.state.car}
     }
 
     _handleFormSubmit(values, bag) {
-        console.log(values);
+        console.log(values, this.state.car);
+        let id = this.state.car.id;
+        this.setState({
+            car: values
+        })
+        console.log(values, this.state.car); 
+        console.log(id);
+        axios.put(`https://carguideserviceapi20201105030004.azurewebsites.net/CarGuideServiceAPI/vehicle/${id}`, {values})
+        .then(res => {
+            console.log(res)
+        })
+        .catch(err => {
+            console.error(err); 
+        })
     }
 
-    handleChange(e){
-        console.log(e.target.value)
-    }
     render(){
         let car;
         try {
@@ -33,6 +44,28 @@ class updateCar extends Component {
               <Col>
                 <h3 style={{ textAlign: 'center' }}>Edit Car</h3>
                 <hr />
+                <Table striped style={{ marginTop: 30 }}>
+                    <thead>
+                        <tr>
+                            <th>Make</th>
+                            <th>Model</th>
+                            <th>Year</th>
+                            <th>Size</th>
+                            <th>Power</th>
+                            <th>Type</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr key={car.id}>
+                            <th>{car.make}</th>
+                            <td>{car.model}</td>
+                            <td>{car.year}</td>
+                            <td>{car.size}</td>
+                            <td>{car.power}</td>
+                            <td>{car.type}</td>
+                        </tr>
+                    </tbody>
+                </Table>
                 <Formik 
                     initialValues={{model, make, year, size, power, type}}
                     onSubmit={this._handleFormSubmit}
@@ -57,7 +90,6 @@ class updateCar extends Component {
                                 type="string"
                                 placeholder="Model"
                                 onChange={handleChange}
-                                value={car.model}
                                 onBlur={handleBlur}
                                 />
                                 {errors.model && touched.model && (
@@ -72,7 +104,6 @@ class updateCar extends Component {
                                 type="string"
                                 placeholder="Make"
                                 onChange={handleChange}
-                                value={car.make}
                                 onBlur={handleBlur}
                                 />
                                 {errors.make && touched.make && (
@@ -87,7 +118,7 @@ class updateCar extends Component {
                                 type="number"
                                 placeholder="Year"
                                 onChange={handleChange}
-                                value={car.year}
+                            
                                 onBlur={handleBlur}
                                 />
                                 {errors.year && touched.year && (
@@ -102,7 +133,7 @@ class updateCar extends Component {
                                 type="number"
                                 placeholder="Size"
                                 onChange={handleChange}
-                                value={car.size}
+                              
                                 onBlur={handleBlur}
                                 />
                                 {errors.size && touched.size && (
@@ -117,7 +148,7 @@ class updateCar extends Component {
                                 type="number"
                                 placeholder="Power"
                                 onChange={handleChange}
-                                value={car.power}
+                            
                                 onBlur={handleBlur}
                                 />
                                 {errors.power && touched.power && (
@@ -132,7 +163,7 @@ class updateCar extends Component {
                                 type="number"
                                 placeholder="Type"
                                 onChange={handleChange}
-                                value={car.type}
+                               
                                 onBlur={handleBlur}
                                 />
                                 {errors.type && touched.type && (

@@ -10,3 +10,10 @@ export const apiSignUp = async (request_data) => {
 }
 
 
+
+export const getAllUsers = async () => {
+    const users = await axios.get('https://carguideserviceapi20201105030004.azurewebsites.net/CarGuideServiceAPI/user/all')
+    // console.log(users.data)
+    return users;
+
+}

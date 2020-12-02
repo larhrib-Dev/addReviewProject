@@ -42,7 +42,6 @@ class NavBarComponent extends Component {
 
     _renderLoginOrLogout() {
       const { isAuth, profile, logUserOut } = this.props;
-      // console.log(isAuth, profile)
       if (isAuth) {
           return (
            <ButtonDropdown isOpen={this.state.dropdownOpen} toggle={this.toggleButton}>
@@ -60,11 +59,11 @@ class NavBarComponent extends Component {
          );
       }
 
-      // return ( 
-      //         <NavItem>
-      //           <NavLink href="/">Login</NavLink>
-      //         </NavItem>
-      //       );
+      return ( 
+              <NavItem>
+                <NavLink href="/">Login</NavLink>
+              </NavItem>
+            );
     }
 
     render(){

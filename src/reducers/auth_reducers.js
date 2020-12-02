@@ -3,7 +3,8 @@ import { AUTH_ATTEMPTING,
          AUTH_FAILED,
          SIGNUP_SUCCESS,
          SIGNUP_FAILD,
-         USER_LOGOUT
+         USER_LOGOUT,
+         PROFILE_FETCHED
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -20,11 +21,13 @@ export default (state = INITIAL_STATE, action) => {
         case AUTH_ATTEMPTING:
             return {...state, attempting: true, isAuth: false, error: null}
         case AUTH_SUCCESS:
-            return {...state, attempting: false, profile: action.profile ,isAuth: action.isAuth, error: action.payload}
+            return {...state, attempting: false, isAuth: true, error: null}
         case AUTH_FAILED:
             return {...state, attempting: false, isAuth: false, error: action.payload}
         case USER_LOGOUT:
             return {...state, isAuth: false, profile: {}}
+        case PROFILE_FETCHED:
+            return {...state, profile: action.payload}
         default:
             return state
     }

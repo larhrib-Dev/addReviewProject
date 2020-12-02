@@ -22,15 +22,9 @@ class NavBarComponent extends Component {
         super(props);
         this.toggle = this.toggle.bind(this);
         this.toggleButton = this.toggleButton.bind(this);
-        this.handleChange = this.handleChange.bind(this);
         this.state = {
             isOpen: false,
-            dropdownOpen: false,
-            user: {
-              isAuth: this.props.isAuth,
-              profile: this.props.profile
-            },
-
+            dropdownOpen: false
         }
     }
 
@@ -45,11 +39,6 @@ class NavBarComponent extends Component {
             dropdownOpen: !this.state.dropdownOpen
       });
     }
-    handleChange() {
-      this.setState({
-        user: { isAuth: false, profile: ''}
-      })
-    }
 
     _renderLoginOrLogout() {
       const { isAuth, profile, logUserOut } = this.props;
@@ -58,7 +47,7 @@ class NavBarComponent extends Component {
           return (
            <ButtonDropdown isOpen={this.state.dropdownOpen} toggle={this.toggleButton}>
              <DropdownToggle caret color="link" size="sm">
-                Welcome, {profile}
+                Welcome, {profile.userName}
              </DropdownToggle>
              <DropdownMenu>
                <DropdownItem onClick={() => logUserOut() }>

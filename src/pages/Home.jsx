@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Button, Col, Row, Table, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { Button, Col, Row, Table} from 'reactstrap';
 import { getCars } from '../api/cars';
 import axios from 'axios';
-import ModalCar from './ModalCar';
 import updateCar from '../components/updateCar';
 
 
@@ -26,6 +25,7 @@ class Home extends Component {
                 cars
             });
         });
+        // console.log(this.props.location.state)
     }
 
     onDelete(id){
@@ -46,6 +46,8 @@ class Home extends Component {
           <>
           {/* <!--/CarGuideServiceAPI/vehicle/criterias = Find The Best Car For Your Criterias--> */}
             <Link to="/search"><Button color="warning" size="lg" style={{ margin: 10, textAlign: 'center' }}>Best Cars</Button></Link>
+            <Link to={{ pathname: `/addReviews/`}}><Button color="info" style={{ marginRight: 10, textAlign: 'center' }} size="lg">Add Review</Button></Link>
+            {/* <!--POST/CarGuideServiceAPI/vehiclereview = Post A Car Review--> */} 
             <Link to="/addToCar"><Button color="primary" style={{ marginRight: 10, textAlign: 'center' }} size="lg">Add Car</Button></Link>
             <Link to="/all_Users"><Button color="success" className="mr-auto" size="lg">Users</Button></Link>
             <Table striped>
@@ -55,7 +57,7 @@ class Home extends Component {
                         <th>Model</th>
                         <th>Year</th>
                         <th>Number Of Reviews</th>
-                        <th>Operations</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -71,8 +73,6 @@ class Home extends Component {
                                     <Button color="primary" style={{ marginRight: 10 }} size="sm">Edit</Button>
                                 </Link>
                                 <Button color="danger" size="sm" onClick={() => {this.onDelete(car.id)}}>Delete</Button>
-            {/* <!--POST/CarGuideServiceAPI/vehiclereview = Post A Car Review--> */}
-                                <Link to={{ pathname: `/addReviews/${car.id}`, state: {car} }}><Button color="info" style={{ marginRight: 10, textAlign: 'center' }} size="sm">Add Review</Button></Link>
                             </td>
                         </tr>
                        ))

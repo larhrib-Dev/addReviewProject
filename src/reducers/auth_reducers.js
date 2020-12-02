@@ -2,7 +2,8 @@ import { AUTH_ATTEMPTING,
          AUTH_SUCCESS,
          AUTH_FAILED,
          SIGNUP_SUCCESS,
-         SIGNUP_FAILD
+         SIGNUP_FAILD,
+         USER_LOGOUT
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -22,6 +23,8 @@ export default (state = INITIAL_STATE, action) => {
             return {...state, attempting: false, profile: action.profile ,isAuth: action.isAuth, error: action.payload}
         case AUTH_FAILED:
             return {...state, attempting: false, isAuth: false, error: action.payload}
+        case USER_LOGOUT:
+            return {...state, isAuth: false, profile: {}}
         default:
             return state
     }

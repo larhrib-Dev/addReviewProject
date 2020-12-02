@@ -13,6 +13,9 @@ class LoginPage extends Component {
     constructor(props){
         super(props);
         this._handleFormSubmit = this._handleFormSubmit.bind(this);
+        this.state = {
+            username: ''
+        }
     }
 
     componentDidUpdate() {
@@ -28,6 +31,9 @@ class LoginPage extends Component {
     _handleFormSubmit(values, bag) {
         this.props.signIn(values);
         this.bag = bag;
+        this.setState({
+            username: values.username
+        })
     }
 
     _renderErrorIfAny() {
@@ -83,6 +89,7 @@ class LoginPage extends Component {
                                     <FormFeedback>{errors.password}</FormFeedback> :
                                     null
                                 }
+                             <Link to={{ pathname: '/home' }}>
                               <Button style={{ marginTop: 10 }} 
                                         color="primary" 
                                         block
@@ -90,12 +97,13 @@ class LoginPage extends Component {
                                         disabled={!isValid || isSubmitting}
                                         >Sign In
                               </Button>
+                            </Link>
                             </FormGroup>
                     )}
                     </Formik>
                     Do not have an account?
                    <Link to='/signup'> 
-                        <Badge color="info">Sign Up Now</Badge>             
+                        <Badge color="info">Sign Up Now</Badge>
                    </Link>
                    </Col>
                 </Row>
@@ -109,7 +117,8 @@ const mapStateToProps = ({ auth }) => {
     return {
         attempting: auth.attempting,
         error: auth.error,
-        isAuth: auth.isAuth
+        isAuth: auth.isAuth,
+        profile: auth.profile
     };
 };
 

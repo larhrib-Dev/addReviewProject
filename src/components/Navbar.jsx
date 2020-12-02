@@ -15,6 +15,7 @@ import {
   ButtonDropdown
 } from 'reactstrap';
 
+import {logUserOut} from '../actions';
 class NavBarComponent extends Component {
 
     constructor(props){
@@ -45,14 +46,13 @@ class NavBarComponent extends Component {
       });
     }
     handleChange() {
-      // console.log('user:', this.state.user)
       this.setState({
         user: { isAuth: false, profile: ''}
       })
     }
 
     _renderLoginOrLogout() {
-      const { isAuth, profile } = this.props;
+      const { isAuth, profile, logUserOut } = this.props;
       // console.log(isAuth, profile)
       if (isAuth) {
           return (
@@ -61,19 +61,21 @@ class NavBarComponent extends Component {
                 Welcome, {profile}
              </DropdownToggle>
              <DropdownMenu>
-               <DropdownItem>
-                 <Link to="/" onClick={this.handleChange}>Logout</Link>
+               <DropdownItem onClick={() => logUserOut() }>
+                 <Link to="/">
+                 Logout
+                 </Link>
                </DropdownItem>
              </DropdownMenu>
            </ButtonDropdown>
          );
       }
 
-      return ( 
-              <NavItem>
-                <NavLink href="/">Login</NavLink>
-              </NavItem>
-            );
+      // return ( 
+      //         <NavItem>
+      //           <NavLink href="/">Login</NavLink>
+      //         </NavItem>
+      //       );
     }
 
     render(){
@@ -102,5 +104,5 @@ const mapStateToProps = ({ auth }) => {
   };
 };
 
-const NavBar = connect(mapStateToProps)(NavBarComponent);
+const NavBar = connect(mapStateToProps, {logUserOut})(NavBarComponent);
 export { NavBar };

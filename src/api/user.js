@@ -1,5 +1,8 @@
 import axios from 'axios';
 
+
+
+
 export const apiLogin = (request_data) => {
     return  axios.post(`https://carguideserviceapi20201105030004.azurewebsites.net/CarGuideServiceAPI/user/login?username=${request_data.username}&password=${request_data.password}`);
 }
@@ -17,3 +20,8 @@ export const getAllUsers = async () => {
     return users;
 
 }
+
+
+// export const generate_Token = () => {
+
+// }

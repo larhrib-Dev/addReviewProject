@@ -79,7 +79,7 @@ class updateCar extends Component {
                     })}
                 >
                 { 
-                    ({handleChange,handleSubmit, isValid, isSubmitting, errors, touched, handleBlur}) => 
+                    ({handleChange,handleSubmit, isValid, isSubmitting, errors, touched, handleBlur, setFieldValue}) => 
                     (
                         <div>
                             <FormGroup>
@@ -103,8 +103,8 @@ class updateCar extends Component {
                                 name="make"
                                 type="string"
                                 placeholder="Make"
-                                onChange={handleChange}
                                 onBlur={handleBlur}
+                                onChange={handleChange}
                                 />
                                 {errors.make && touched.make && (
                                 <FormFeedback>{errors.make}</FormFeedback>

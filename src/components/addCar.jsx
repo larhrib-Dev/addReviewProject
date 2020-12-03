@@ -14,7 +14,6 @@ class AddCar extends Component {
 
 
   _handleFormSubmit (values) {
-      console.log(values)
       axios.post('https://carguideserviceapi20201105030004.azurewebsites.net/CarGuideServiceAPI/vehicle', values)
       .then(res => {
           console.log(res)

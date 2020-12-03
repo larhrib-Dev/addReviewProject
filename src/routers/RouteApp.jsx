@@ -1,9 +1,12 @@
 import React, { Fragment } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import AddCar from '../components/addCar';
-import addReviews from '../components/addReviews';
+import {addReviews} from '../components/addReviews';
 import allUser from '../components/all_users';
+import Maintenance from '../components/maintenance';
 import search from '../components/search';
+import SeeYourAddReview from '../components/seeYourAddReview';
+import SeeYourBestVehicle from '../components/SeeYourBestVehicle';
 import updateCar from '../components/updateCar';
 import updateUser from '../components/updateUser';
 import { Home, Login, Logout } from '../pages';
@@ -22,6 +25,9 @@ const RouteApp = () => {
                 <ProtectedRoute path="/editUser/:string" exact component={updateUser} />
                 <ProtectedRoute path="/search/" exact component={search} />
                 <ProtectedRoute path="/addReviews/:id" exact component={addReviews} />
+                <ProtectedRoute path="/seeYourAddReview" exact component={SeeYourAddReview} />
+                <ProtectedRoute path="/SeeYourBestVehicle" exact component={SeeYourBestVehicle} />
+                <ProtectedRoute path="/maintenance" exact component={Maintenance} />
             </Switch>
         </Fragment>
     );

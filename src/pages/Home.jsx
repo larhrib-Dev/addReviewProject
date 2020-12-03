@@ -54,7 +54,7 @@ class HomePage extends Component {
             <Link to={{ pathname: `/addReviews/${username}`}}><Button color="info" style={{ marginRight: 10, textAlign: 'center' }} size="lg">Add Review</Button></Link>
             {/* <!--POST/CarGuideServiceAPI/vehiclereview = Post A Car Review--> */} 
             <Link to="/addToCar"><Button color="primary" style={{ marginRight: 10, textAlign: 'center' }} size="lg">Add Car</Button></Link>
-            <Link to="/all_Users"><Button color="success" style={{ marginRight: 10, textAlign: 'center' }}  size="lg">Users</Button></Link>
+            <Link to="/all_Users"><Button color="success" style={{ marginRight: 10, textAlign: 'center' }}  size="lg">See Review User</Button></Link>
             <Link to="/maintenance"><Button color="secondary" className="mr-auto" size="lg">Maintenance</Button></Link>
             <Table striped>
                 <thead>

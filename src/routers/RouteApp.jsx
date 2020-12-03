@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import AddCar from '../components/addCar';
 import {addReviews} from '../components/addReviews';
-import allUser from '../components/all_users';
+import {allUser} from '../components/all_users';
 import Maintenance from '../components/maintenance';
 import search from '../components/search';
 import SeeYourAddReview from '../components/seeYourAddReview';

@@ -61,8 +61,7 @@ class addReviews extends Component {
             { this._renderErrorIfAny() }
             <div xs="2" className="mt-4">
                 <Formik
-                  initialValues={{ model: '', make: '', year: 0, 
-                                   size: 0, power: 0 , type: 0, 
+                  initialValues={{ model: '', make: '', year: 0, power: 0 ,
                                    fuelEfficiency: 0, handling: 0, safety: 0,
                                    reliability: 0, steeringFeelAndResponse: 0, comfortLevel: 0,
                                    rideQuality: 0, buildQuality: 0, technology: 0, styling: 0, resaleValue: 0
@@ -72,9 +71,7 @@ class addReviews extends Component {
                         model: Yup.string().required(),
                         make: Yup.string().required(),
                         year: Yup.number(),
-                        size: Yup.number(),
                         power: Yup.number(),
-                        type: Yup.number(),
                         fuelEfficiency: Yup.number(),
                         handling: Yup.number(),
                         safety: Yup.number(),
@@ -95,16 +92,16 @@ class addReviews extends Component {
                         <Row xs="3" className="mt-5">
                             <Col>
                              <FormGroup>
-                                <Label>Model</Label>
+                                <Label>Year</Label>
                                 <Input
-                                invalid={errors.model && touched.model}
-                                name="model"
-                                type="string"
-                                placeholder="Model"
+                                invalid={errors.year && touched.year}
+                                name="year"
+                                type="number"
+                                placeholder="Year"
                                 onChange={handleChange}
                                 />
-                                {errors.model && touched.model && (
-                                <FormFeedback>{errors.model}</FormFeedback>
+                                {errors.year && touched.year && (
+                                <FormFeedback>{errors.year}</FormFeedback>
                                 )}
                             </FormGroup>
                              <FormGroup>
@@ -121,29 +118,16 @@ class addReviews extends Component {
                                 )}
                             </FormGroup>
                              <FormGroup>
-                                <Label>Year</Label>
+                                <Label>Model</Label>
                                 <Input
-                                invalid={errors.year && touched.year}
-                                name="year"
-                                type="number"
-                                placeholder="Year"
+                                invalid={errors.model && touched.model}
+                                name="model"
+                                type="string"
+                                placeholder="Model"
                                 onChange={handleChange}
                                 />
-                                {errors.year && touched.year && (
-                                <FormFeedback>{errors.year}</FormFeedback>
-                                )}
-                            </FormGroup>
-                             <FormGroup>
-                                <Label>Size</Label>
-                                <Input
-                                invalid={errors.size && touched.size}
-                                name="size"
-                                type="number"
-                                placeholder="Size"
-                                onChange={handleChange}
-                                />
-                                {errors.size && touched.size && (
-                                <FormFeedback>{errors.size}</FormFeedback>
+                                {errors.model && touched.model && (
+                                <FormFeedback>{errors.model}</FormFeedback>
                                 )}
                             </FormGroup>
                              <FormGroup>
@@ -157,19 +141,6 @@ class addReviews extends Component {
                                 />
                                 {errors.power && touched.power && (
                                 <FormFeedback>{errors.power}</FormFeedback>
-                                )}
-                            </FormGroup>
-                             <FormGroup>
-                                <Label>Type</Label>
-                                <Input
-                                invalid={errors.type && touched.type}
-                                name="type"
-                                type="number"
-                                placeholder="Type"
-                                onChange={handleChange}
-                                />
-                                {errors.type && touched.type && (
-                                <FormFeedback>{errors.type}</FormFeedback>
                                 )}
                             </FormGroup>
                              <FormGroup>
@@ -211,9 +182,7 @@ class addReviews extends Component {
                                 <FormFeedback>{errors.safety}</FormFeedback>
                                 )}
                             </FormGroup>
-                           </Col>
-                           <Col>
-                            <FormGroup>
+                             <FormGroup>
                                 <Label>Reliability</Label>
                                 <Input
                                 invalid={errors.reliability && touched.reliability}
@@ -225,7 +194,9 @@ class addReviews extends Component {
                                 {errors.reliability && touched.reliability && (
                                 <FormFeedback>{errors.reliability}</FormFeedback>
                                 )}
-                            </FormGroup>
+                             </FormGroup>
+                           </Col>
+                           <Col>        
                             <FormGroup>
                                 <Label>Steering Feel And Response</Label>
                                 <Input

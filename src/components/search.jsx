@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Formik } from 'formik';
+import { Field, Formik } from 'formik';
 import { Link } from 'react-router-dom';
 import { Alert, Button, Col, FormFeedback, FormGroup, Input, Label, Row} from 'reactstrap';
 import * as Yup from 'yup';
@@ -21,43 +21,38 @@ class search extends Component {
    _handleFormSubmit(values) {
         apiBestVehicle(values)
         .then(res => {
-            if(res.data.id !== null && res.data.id !== undefined)
+            if(res.data.id !== null)
             {
+                // console.log(res.data.id)
                 this.setState({
                     bestVehicle: res.data,
                     message: 'Your search was successful',
                     isVide : false
                 })
-            } else {
-                this.setState({
-                message: 'Your preferred choice does not exist, try again'
-            })
-            }
+            } 
         })
         .catch(err => {
             console.log(err)
         });
    }
     _renderErrorIfAny(){
-        if (!this.state.isVide && this.state.message === 'Your preferred choice does not exist, try again') {
+        if (!this.state.isVide || this.bestVehicle) {
             return (
                 <Alert color="success" style={{ textAlign: 'center' }}>
                     {this.state.message}
                 </Alert>
             );
         }
-        if (this.state.bestVehicle.id !== undefined || this.state.message !== '' || !this.state.isVide)
-        {
-            return (
-                <Alert color="warning" style={{ textAlign: 'center' }}>
-                    {this.state.message}
-                </Alert>
-            );
-        }
+        return (
+            <Alert color="warning" style={{ textAlign: 'center' }}>
+              Start Your Search
+            </Alert>
+        );
     }
 
    render() {
        const DataBestVehicle = this.state.bestVehicle
+    //    console.log(DataBestVehicle)
         return (
         <div style={{ padding: 20 }}>
             <h3 style={{ textAlign: 'center' }}>Finding The Best Vehicle</h3>
@@ -71,7 +66,7 @@ class search extends Component {
                     onSubmit={this._handleFormSubmit}
                     validationSchema={Yup.object().shape({
                         year: Yup.number(),
-                        luxuryLevel: Yup.number(),
+                        // luxuryLevel: Yup.number(),
                         size: Yup.number(),
                         priceRange: Yup.number(),
                         type: Yup.number(),
@@ -113,10 +108,14 @@ class search extends Component {
                                 <Input
                                 invalid={errors.luxuryLevel && touched.luxuryLevel}
                                 name="luxuryLevel"
-                                type="string"
+                                type="select"
                                 placeholder="Luxury Level"
                                 onChange={handleChange}
-                                />
+                                >
+                                    <option>Normal</option>
+                                    <option >Luxury</option>
+                                    <option>Sport</option>
+                                </Input>
                                 {errors.luxuryLevel && touched.luxuryLevel && (
                                 <FormFeedback>{errors.luxuryLevel}</FormFeedback>
                                 )}

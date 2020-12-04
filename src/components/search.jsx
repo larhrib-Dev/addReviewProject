@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Field, Formik } from 'formik';
+import { Formik } from 'formik';
 import { Link } from 'react-router-dom';
 import { Alert, Button, Col, FormFeedback, FormGroup, Input, Label, Row} from 'reactstrap';
 import * as Yup from 'yup';
@@ -19,24 +19,22 @@ class search extends Component {
    }
 
    _handleFormSubmit(values) {
+        console.log(values)
         apiBestVehicle(values)
         .then(res => {
-            if(res.data.id !== null)
-            {
-                // console.log(res.data.id)
-                this.setState({
-                    bestVehicle: res.data,
-                    message: 'Your search was successful',
-                    isVide : false
-                })
-            } 
+            console.log(res)
+            this.setState({
+                bestVehicle: res.data,
+                message: 'Your search was successful',
+                isVide : false
+            })
         })
         .catch(err => {
             console.log(err)
         });
    }
     _renderErrorIfAny(){
-        if (!this.state.isVide || this.bestVehicle) {
+        if (!this.state.isVide) {
             return (
                 <Alert color="success" style={{ textAlign: 'center' }}>
                     {this.state.message}
@@ -52,7 +50,7 @@ class search extends Component {
 
    render() {
        const DataBestVehicle = this.state.bestVehicle
-    //    console.log(DataBestVehicle)
+       console.log(DataBestVehicle)
         return (
         <div style={{ padding: 20 }}>
             <h3 style={{ textAlign: 'center' }}>Finding The Best Vehicle</h3>
@@ -60,13 +58,13 @@ class search extends Component {
             { this._renderErrorIfAny() }
             <div xs="2" className="mt-4">
                 <Formik
-                  initialValues={{  year: 0, luxuryLevel: 0, size: 0, priceRange: 0, type: 0, fuelEfficiency: 0,  power: 0 , handling: 0, safety: 0, reliability: 0, steeringFeelAndResponse: 0, comfortLevel: 0,
+                  initialValues={{  year: 0, luxuryLevel: '', size: 0, priceRange: 0, type: 0, fuelEfficiency: 0,  power: 0 , handling: 0, safety: 0, reliability: 0, steeringFeelAndResponse: 0, comfortLevel: 0,
                                    rideQuality: 0, buildQuality: 0, technology: 0, styling: 0, resaleValue: 0
                                      }}
                     onSubmit={this._handleFormSubmit}
                     validationSchema={Yup.object().shape({
                         year: Yup.number(),
-                        // luxuryLevel: Yup.number(),
+                        luxuryLevel: Yup.string(),
                         size: Yup.number(),
                         priceRange: Yup.number(),
                         type: Yup.number(),

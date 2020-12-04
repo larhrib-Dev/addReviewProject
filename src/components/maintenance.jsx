@@ -1,7 +1,7 @@
 import { Formik } from 'formik';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Alert, Button, Col, FormFeedback, FormGroup, Input, Label, Row, Table } from 'reactstrap';
+import { Alert, Button, Col, FormFeedback, FormGroup, Input, Row, Table } from 'reactstrap';
 import * as Yup from 'yup'; 
 import { apiMaintenance } from '../api/cars';
 
@@ -56,8 +56,7 @@ class Maintenance extends Component {
   }
 
   render(){
-    console.log(this.state.Maintenance, this.state.messageError)
-    const error = this.state.messageError;
+    // console.log(this.state.Maintenance, this.state.messageError)
     const data = this.state.Maintenance;
     return (
     <div className="mt-5">

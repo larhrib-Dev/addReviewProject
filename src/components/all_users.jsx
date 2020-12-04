@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Table } from 'reactstrap';
 import { apiViewsVicule } from '../api/cars';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
 import {connect} from 'react-redux';
 

@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { Button, Col, Row, Table} from 'reactstrap';
 import { getCars } from '../api/cars';
 import axios from 'axios';
-import updateCar from '../components/updateCar';
 import { connect } from 'react-redux';
 
 
@@ -30,7 +29,7 @@ class HomePage extends Component {
     }
 
     componentDidUpdate() {
-        const {profile, isAuth} = this.props;
+        // const {profile, isAuth} = this.props;
     }
 
     onDelete(id){

@@ -19,7 +19,7 @@ export const signIn = (request_data) => {
             const data = await apiLogin(request_data);
             if (data.data === "Logged In Successfully")
             {
-                console.log(request_data.username)
+                // console.log(request_data.username)
                 const token = TOKEN_NAME;
                 setAuthHeader(token);
                 dispatch(getUserProfile(request_data.username))

@@ -58,13 +58,12 @@ class search extends Component {
             { this._renderErrorIfAny() }
             <div xs="2" className="mt-4">
                 <Formik
-                  initialValues={{  year: 0, luxuryLevel: '', size: 0, priceRange: 0, type: 0, fuelEfficiency: 0,  power: 0 , handling: 0, safety: 0, reliability: 0, steeringFeelAndResponse: 0, comfortLevel: 0,
-                                   rideQuality: 0, buildQuality: 0, technology: 0, styling: 0, resaleValue: 0
-                                     }}
+                  initialValues={{  year: 0, luxuryLevel: 0, size: 0, priceRange: 0, type: 0, fuelEfficiency: 0,  power: 0 , handling: 0, safety: 0, reliability: 0, steeringFeelAndResponse: 0, comfortLevel: 0,
+                                   rideQuality: 0, buildQuality: 0, technology: 0, styling: 0, resaleValue: 0 }}
                     onSubmit={this._handleFormSubmit}
                     validationSchema={Yup.object().shape({
                         year: Yup.number(),
-                        luxuryLevel: Yup.string(),
+                        luxuryLevel: Yup.number(),
                         size: Yup.number(),
                         priceRange: Yup.number(),
                         type: Yup.number(),
@@ -106,13 +105,10 @@ class search extends Component {
                                 <Input
                                 invalid={errors.luxuryLevel && touched.luxuryLevel}
                                 name="luxuryLevel"
-                                type="select"
+                                type="number"
                                 placeholder="Luxury Level"
                                 onChange={handleChange}
                                 >
-                                    <option>Normal</option>
-                                    <option >Luxury</option>
-                                    <option>Sport</option>
                                 </Input>
                                 {errors.luxuryLevel && touched.luxuryLevel && (
                                 <FormFeedback>{errors.luxuryLevel}</FormFeedback>
@@ -136,7 +132,7 @@ class search extends Component {
                                 <Input
                                 invalid={errors.priceRange && touched.priceRange}
                                 name="priceRange"
-                                type="string"
+                                type="number"
                                 placeholder="Price Range"
                                 onChange={handleChange}
                                 />

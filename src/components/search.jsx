@@ -14,19 +14,21 @@ class search extends Component {
        this.state = {
            bestVehicle : [],
            message: '',
-           isVide: true
+           isVide: true,
+           id: null
        }
    }
 
    _handleFormSubmit(values) {
-        console.log(values)
+        // console.log(values)
         apiBestVehicle(values)
         .then(res => {
             console.log(res)
             this.setState({
                 bestVehicle: res.data,
                 message: 'Your search was successful',
-                isVide : false
+                isVide : false,
+                id: res.data.id
             })
         })
         .catch(err => {
@@ -34,7 +36,7 @@ class search extends Component {
         });
    }
     _renderErrorIfAny(){
-        if (!this.state.isVide) {
+        if (!this.state.isVide || this.state.id !== null) {
             return (
                 <Alert color="success" style={{ textAlign: 'center' }}>
                     {this.state.message}
@@ -50,7 +52,7 @@ class search extends Component {
 
    render() {
        const DataBestVehicle = this.state.bestVehicle
-       console.log(DataBestVehicle)
+    //    console.log(DataBestVehicle)
         return (
         <div style={{ padding: 20 }}>
             <h3 style={{ textAlign: 'center' }}>Finding The Best Vehicle</h3>
@@ -106,7 +108,7 @@ class search extends Component {
                                 invalid={errors.luxuryLevel && touched.luxuryLevel}
                                 name="luxuryLevel"
                                 type="number"
-                                placeholder="Luxury Level"
+                                placeholder="From 0 to 2"
                                 onChange={handleChange}
                                 >
                                 </Input>
@@ -120,7 +122,7 @@ class search extends Component {
                                 invalid={errors.size && touched.size}
                                 name="size"
                                 type="number"
-                                placeholder="Size"
+                                placeholder="From 0 to 3"
                                 onChange={handleChange}
                                 />
                                 {errors.size && touched.size && (
@@ -133,7 +135,7 @@ class search extends Component {
                                 invalid={errors.priceRange && touched.priceRange}
                                 name="priceRange"
                                 type="number"
-                                placeholder="Price Range"
+                                placeholder="Form 0 to 4"
                                 onChange={handleChange}
                                 />
                                 {errors.priceRange && touched.priceRange && (
@@ -159,7 +161,7 @@ class search extends Component {
                                 invalid={errors.type && touched.type}
                                 name="type"
                                 type="number"
-                                placeholder="Type"
+                                placeholder="From 0 to 5"
                                 onChange={handleChange}
                                 />
                                 {errors.type && touched.type && (
